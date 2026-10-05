@@ -198,7 +198,7 @@ resource "aws_eks_node_group" "managed_node_group" {
     aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy
   ]
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t3.micro"]
+  instance_types = ["m7i-flex.large"]
 
   scaling_config {
     desired_size = 4

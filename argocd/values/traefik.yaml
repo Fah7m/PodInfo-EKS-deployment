@@ -1,6 +1,5 @@
 deployment:
   replicas: 1
-
 resource:
   requests:
     cpu: 100m
@@ -17,7 +16,6 @@ service:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-
 ports:
   web:
     redirectTo:
@@ -25,13 +23,10 @@ ports:
     websecure:
       tls:
         enabled: true
-
 metrics:
   prometheus:
     entrypoint: metrics
     addRouterLabels: true
-
-
 ingressClass:
   enabled: true
   isDefaultClass: true
