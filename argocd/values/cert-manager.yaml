@@ -1,0 +1,37 @@
+crds:
+  enabled: true
+  keep: true
+
+ingressShim:
+  defaultACMEChallengeType: dns01
+  defaultACMEDNS01ChallengeProvider: route53
+
+extraArgs:
+  - --dns01-recursive-nameservers=8.8.8.8:53
+  - --dns01-recursive-nameservers-only
+
+serviceAccount:
+  create: true
+  name: cert-manager
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-cert-manager-irsa
+
+securityContext:
+  fsGroup: 1001
+
+resources:
+  requests:
+    cpu: "10m"
+    memory: "32Mi"
+
+webhook:
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "32Mi"
+
+cainjector:
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "32Mi"

@@ -1,0 +1,28 @@
+clusterName: eks-prod
+region: eu-west-2
+
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    # eks-prod-lbc-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-lbc-irsa
+
+# Traefik owns the Service of type LoadBalancer, so the service mutator
+# webhook is not needed and only adds a failure mode during rollout.
+enableServiceMutatorWebhook: false
+
+replicaCount: 2
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+
+clusterName: eks-prod
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-lbc-irsa

@@ -1,0 +1,44 @@
+# Terragrunt cache directories
+.terragrunt-cache/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+crash.*.log
+.terraformrc
+terraform.rc
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Environment files (AWS access keys etc.)
+.env
+.env.*
+*.env
+
+# Terraform plan output (can contain secret values in plain text)
+*.tfplan
+tfplan
+*.plan
+
+# Private keys / credentials
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+credentials
+.aws/
+
+# Kubeconfigs
+kubeconfig
+*.kubeconfig
+.kube/

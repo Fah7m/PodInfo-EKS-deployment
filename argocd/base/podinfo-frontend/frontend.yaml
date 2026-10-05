@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo-frontend
+  namespace: podinfo
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
+      containers:
+        - name: frontend
+          image:  # Replace with ECR image
+          ports:
+            - containerPort: 9898
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              memory: "100m"
+              cpu: "128Mi"
+            limits:
+              memory: "500m"
+              cpu: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /healtz
+              port: 9898
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 9898
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          env:
+            - name: PODINFO_BACKEND_URL
+              value: "http://podinfo-backend-service:9898" # Native podinfo backend flag
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: frontend
+
+# Service
+
+api:Version: v1
+kind: Service
+metadata:
+  name: podinfo-frontend-service
+  namespace: podinfo
+  labels:
+    app: frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: frontend
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 9898

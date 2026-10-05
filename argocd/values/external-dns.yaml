@@ -1,0 +1,25 @@
+provider:
+  name: aws
+
+registry: txt
+txtOwnerId: eks-prod
+policy: sync
+
+domainFilters:
+  - app.fahim-dev.com
+
+env:
+  - name: AWS_DEFAULT_REGION
+    value: eu-west-2
+
+serviceAccount:
+  create: true
+  name: external-dns
+  annotations:
+    # eks-prod-external-dns-irsa
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-external-dns-irsa
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
