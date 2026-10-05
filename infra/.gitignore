@@ -14,7 +14,6 @@ crash.log
 crash.*.log
 .terraformrc
 terraform.rc
-.DS_Store
 Thumbs.db
 .idea/
 .vscode/
@@ -23,7 +22,7 @@ Thumbs.db
 .env
 .env.*
 *.env
-
+.DS_Store
 # Terraform plan output (can contain secret values in plain text)
 *.tfplan
 tfplan
