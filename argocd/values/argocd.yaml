@@ -5,6 +5,7 @@ configs:
     url: https://argocd.app.fahim-dev.com
     application.instanceLabelKey: argocd.argoproj.io/instance
 server:
+  replicas: 1
   ingress:
     enabled: true
     ingressClassName: traefik
@@ -22,6 +23,7 @@ server:
         hosts:
           - argocd.app.fahim-dev.com
 controller:
+  replicas: 1
   resources:
     requests:
       cpu: "250m"
@@ -31,6 +33,7 @@ controller:
       memory: "2Gi"
 
 repoServer:
+  replicas: 1
   resources:
     requests:
       cpu: "100m"
@@ -38,3 +41,6 @@ repoServer:
     limits:
       cpu: "500m"
       memory: "1Gi"
+
+applicationSet:
+  replicas: 1

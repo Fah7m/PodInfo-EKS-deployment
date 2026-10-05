@@ -2,6 +2,8 @@ crds:
   enabled: true
   keep: true
 
+replicaCount: 1
+
 ingressShim:
   defaultACMEChallengeType: dns01
   defaultACMEDNS01ChallengeProvider: route53
@@ -25,12 +27,14 @@ resources:
     memory: "32Mi"
 
 webhook:
+  replicaCount: 1
   resources:
     requests:
       cpu: "10m"
       memory: "32Mi"
 
 cainjector:
+  replicaCount: 1
   resources:
     requests:
       cpu: "10m"

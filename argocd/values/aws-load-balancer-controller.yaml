@@ -11,15 +11,11 @@ serviceAccount:
 # Traefik owns the Service of type LoadBalancer, so the service mutator
 # webhook is not needed and only adds a failure mode during rollout.
 enableServiceMutatorWebhook: false
-
-replicaCount: 2
-
+replicaCount: 1
 resources:
   requests:
     cpu: 10m
     memory: 64Mi
-
-
 clusterName: eks-prod
 serviceAccount:
   create: true

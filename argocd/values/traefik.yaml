@@ -1,3 +1,6 @@
+deployment:
+  replicas: 1
+
 resource:
   requests:
     cpu: 100m

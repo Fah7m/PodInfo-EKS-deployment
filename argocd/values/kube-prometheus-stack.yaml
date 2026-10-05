@@ -1,5 +1,6 @@
 grafana:
   enabled: true
+  replicas: 1
   defaultDashboardsTimezone: Europe/London
   admin:
     existingSecret: grafana-admin-secret
@@ -30,6 +31,7 @@ grafana:
 prometheus:
   enabled: true
   prometheusSpec:
+    replicas: 1
     retention: 15d
     # Discover ServiceMonitors / PodMonitors / PrometheusRules from all
     # setting to false allows prome to auto-discover 
@@ -48,6 +50,7 @@ prometheus:
 alertmanager:
   enabled: true
   alertmanagerSpec:
+    replicas: 1
     retention: 120h
     storage:
       volumeClaimTemplate:
