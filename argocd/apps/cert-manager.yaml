@@ -21,6 +21,9 @@ spec:
     - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
       targetRevision: main
       ref: values
+    - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
+      targetRevision: main
+      path: argocd/base/cert-manager-configs
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
