@@ -21,7 +21,7 @@ spec:
         fsGroup: 999
       containers:
         - name: frontend
-          image:  # Replace with ECR image
+          image: 317990169619.dkr.ecr.eu-west-2.amazonaws.com/podinfo/app:e21db2b
           ports:
             - containerPort: 9898
           securityContext:
