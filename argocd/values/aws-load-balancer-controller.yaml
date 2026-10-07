@@ -1,11 +1,10 @@
-clusterName: eks-prod
+clusterName: eks-prod-eks-cluster
 region: eu-west-2
-
+vpcId: vpc-06624f1e1d020d70a
 serviceAccount:
   create: true
   name: aws-load-balancer-controller
   annotations:
-    # eks-prod-lbc-irsa
     eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-lbc-irsa
 
 # Traefik owns the Service of type LoadBalancer, so the service mutator
@@ -16,9 +15,3 @@ resources:
   requests:
     cpu: 10m
     memory: 64Mi
-clusterName: eks-prod-eks-cluster
-serviceAccount:
-  create: true
-  name: aws-load-balancer-controller
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-lbc-irsa
