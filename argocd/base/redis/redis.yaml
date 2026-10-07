@@ -4,6 +4,7 @@ metadata:
   name: redis
   namespace: podinfo
 spec:
+spec:
   serviceName: "redis"
   replicas: 1
   selector:
@@ -14,11 +15,14 @@ spec:
       labels:
         app: redis
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
         - name: redis
           image: redis:7-alpine
+          command: ["redis-server", "--appendonly", "yes"]
           securityContext:
-            runAsnonRoot: true
+            runAsNonRoot: true
             runAsUser: 999
             allowPrivilegeEscalation: false
           ports:
@@ -26,17 +30,15 @@ spec:
           volumeMounts:
             - name: redis-data
               mountPath: /data
-
-    volumeClaimTemplates:
-      - metadata:
-          name: redis-data
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          storageClassName: "gp3"
-          resources:
-            requests:
-              storage: 1Gi
----
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp3"
+        resources:
+          requests:
+            storage: 1Gi
 # internal service (clusterIP)
 
 apiVersion: v1
