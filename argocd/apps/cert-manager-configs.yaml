@@ -1,5 +1,3 @@
-# Cluster issuer - apply after cert manager is installed
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -12,9 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-      targetRevision: main
-      path: argocd/base/cert-manager-configs
+    repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
+    targetRevision: main
+    path: argocd/base/cert-manager-configs
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
@@ -22,6 +20,9 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
-    - SkipDryRunOnMissingResource=true
+    syncOptions:
+      - CreateNamespace=true
+      - SkipDryRunOnMissingResource=true
+    retry:
+      limit: 5
+      backoff: { duration: 30s, factor: 2, maxDuration: 5m }
