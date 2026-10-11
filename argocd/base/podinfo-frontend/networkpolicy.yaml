@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: podinfo-frontend
+  namespace: podinfo
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - app.fahim-dev.com
+      secretName: podinfo-frontend-tls
+  rules:
+    - host: app.fahim-dev.com
+      http:
+        paths:
+         path: /
+         pathType: Prefix
+         backend:
+          service:
+            name: podinfo-frontend-service
+            port:
+              name: http
+              
