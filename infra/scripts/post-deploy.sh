@@ -1,12 +1,28 @@
 #!/bin/bash
 aws eks update-kubeconfig --region eu-west-2 --name eks-prod-eks-cluster --profile default
 
-# argocd installation and helm installation
+GRAFANA_PASS=$(aws ssm get-parameter --region eu-west-2 \
+  --name /eks/prod/grafana/admin-password --with-decryption \
+  --query Parameter.Value --output text)
+
+kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n monitoring create secret generic grafana-admin-secret \
+  --from-literal=admin-user=admin --from-literal=admin-password="$GRAFANA_PASS" \
+  --dry-run=client -o yaml | kubectl apply -f -
 
 
+aws eks update-kubeconfig --name eks-prod-eks-cluster --region eu-west-2
+VPC_ID=$(aws eks describe-cluster --name eks-prod-eks-cluster --region eu-west-2 \
+  --query cluster.resourcesVpcConfig.vpcId --output text)
 
+grep -q '^vpcId:' argocd/values/aws-load-balancer-controller.yaml   # fail if the line is missing
+sed -i -E "s|^vpcId:.*|vpcId: ${VPC_ID}|" argocd/values/aws-load-balancer-controller.yaml
 
-
+if ! git diff --quiet -- argocd/values/aws-load-balancer-controller.yaml; then
+  git add argocd/values/aws-load-balancer-controller.yaml
+  git commit -m "Set LBC vpcId to ${VPC_ID}"
+  git push
+fi
 
 #secrets for argocd 
 

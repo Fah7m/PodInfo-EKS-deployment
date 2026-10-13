@@ -1,6 +1,6 @@
 clusterName: eks-prod-eks-cluster
 region: eu-west-2
-vpcid: vpc-0599cbb9d8989d409
+vpcId: vpc-0599cbb9d8989d409
 serviceAccount:
   create: true
   name: aws-load-balancer-controller
