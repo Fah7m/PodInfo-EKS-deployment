@@ -45,7 +45,7 @@ spec:
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /ready
+              path: /readyz
               port: 9898
             initialDelaySeconds: 3
             periodSeconds: 5

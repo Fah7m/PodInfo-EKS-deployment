@@ -36,13 +36,13 @@ spec:
               cpu: "512Mi"
           livenessProbe:
             httpGet:
-              path: /healtz
+              path: /healthz
               port: 9898
             initialDelaySeconds: 3
             periodSeconds: 5
           readinessProbe:
             httpGet:
-              path: /ready
+              path: /readyz
               port: 9898
             initialDelaySeconds: 3
             periodSeconds: 5

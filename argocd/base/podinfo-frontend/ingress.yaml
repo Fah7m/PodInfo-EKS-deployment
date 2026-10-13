@@ -15,11 +15,11 @@ spec:
     - host: app.fahim-dev.com
       http:
         paths:
-         path: /
-         pathType: Prefix
-         backend:
-          service:
-            name: podinfo-frontend-service
-            port:
-              name: http
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: podinfo-frontend-service
+                port:
+                  name: http
               
