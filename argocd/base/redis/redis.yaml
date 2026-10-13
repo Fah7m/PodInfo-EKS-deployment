@@ -39,6 +39,8 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
+---
 # internal service (clusterIP)
 
 apiVersion: v1
