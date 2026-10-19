@@ -48,7 +48,7 @@ spec:
             periodSeconds: 5
           env:
             - name: PODINFO_BACKEND_URL
-              value: "http://podinfo-backend-service:9898" # Native podinfo backend flag
+              value: "http://podinfo-backend-service:8080/echo"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
