@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 # One-time per machine (htpasswd makes the bcrypt hash)
 sudo apt install -y apache2-utils
 
@@ -30,7 +33,12 @@ helm upgrade --install argocd argo/argo-cd -n argocd --create-namespace \
   -f argocd/values/argocd.yaml \
   --set-string configs.secret.argocdServerAdminPassword="$ARGOCD_HASH" \
   --wait --timeout 10m
-kubectl -n argocd delete secret argocd-initial-admin-secret --ignore-not-found
+kubectl -n argocd patch secret argocd-secret --type merge \
+  -p "{\"stringData\":{\"admin.password\":\"$ARGOCD_HASH\",\"admin.passwordMtime\":\"$(date -u +%FT%TZ)\"}}"
+kubectl -n argocd rollout restart deploy/argocd-server
+kubectl -n argocd rollout status deploy/argocd-server --timeout=180s
+
+#kubectl -n argocd delete secret argocd-initial-admin-secret --ignore-not-found
 
 # 5. Hand off to GitOps (private repo? apply your repo-credentials Secret first)
 kubectl apply -f argocd/root-app.yaml
