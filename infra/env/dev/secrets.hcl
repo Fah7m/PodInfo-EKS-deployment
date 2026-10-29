@@ -1,19 +1,10 @@
 locals {
-    vpc_cidr = "10.0.0.0/16"
-    public_subnet_cidrs = [
-        "10.0.10.0/24",
-        "10.0.20.0/24"
-    ]
-    private_subnet_cidrs = [
-        "10.0.30.0/24",
-        "10.0.40.0/24"
-    ]
-    availability_zones = ["eu-west-2a", "eu-west-2b"]
-    region             = "eu-west-2"
+  
+  # Terragrunt feature to run commands and fetch secrets
+    route53_zone_arn = run_cmd("--terragrunt-quiet", "aws", "ssm", "get-parameter", "--region", "eu-west-2", "--name",
+    "/eks/dev/route53_zone_arn", "--query", "Parameter.Value", "--output", "text")
 
-
-    eks_version = "1.33"
-
-    route53_zone_arn = "arn:aws:route53:::hostedzone/Z02290411JA35JCBMQUUJ"
-    
+        # ci role later
+    cluster_admins = split(",", run_cmd("--terragrunt-quiet", "aws", "ssm", "get-parameter", "--region", "eu-west-2", 
+    "--name", "/eks/prod/cluster_admins", "--query", "Parameter.Value", "--output", "text"))
 }

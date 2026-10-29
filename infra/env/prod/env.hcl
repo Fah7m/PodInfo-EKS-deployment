@@ -1,4 +1,5 @@
 locals {
+    env = "prod"
     project_name = "eks"
     environment  = "prod"
 

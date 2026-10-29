@@ -1,9 +1,12 @@
+locals {
+  env = read_terragrunt_config(find_in_parent_folders("env.hcl")).locals.env
+}
 
 remote_state {
   backend = "s3"
 
   config = {
-    bucket         = "terraform-eks-state-prod"
+    bucket         = "terraform-eks-state-${local.env}"
     key            = "${path_relative_to_include()}/terraform.tfstate"
     region         = "eu-west-2"
     encrypt        = true
