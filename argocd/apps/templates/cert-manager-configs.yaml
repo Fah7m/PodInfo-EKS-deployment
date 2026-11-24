@@ -10,9 +10,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-    targetRevision: main
-    path: argocd/base/cert-manager-configs
+    repoURL: {{ .Values.repoURL }}
+    targetRevision: {{ required "revision is required" .Values.revision }}
+    path: argocd/overlays/{{ required "env is required" .Values.env }}/cert-manager-configs
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: podinfo-backend
+  name: traefik
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "0"
@@ -9,13 +9,20 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-    targetRevision: main
-    path: argocd/base/podinfo-backend
+  sources:
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: 33.2.1
+      helm:
+        releaseName: traefik
+        valueFiles:
+          - $values/argocd/values/common/traefik.yaml
+    - repoURL: {{ .Values.repoURL }}
+      targetRevision: {{ required "revision is required" .Values.revision }}
+      ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: podinfo
+    namespace: traefik
   syncPolicy:
     automated:
       prune: true

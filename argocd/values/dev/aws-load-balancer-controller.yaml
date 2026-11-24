@@ -1,0 +1,5 @@
+clusterName: eks-dev-eks-cluster
+vpcId: vpc-07d015848d11c3564
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-dev-lbc-irsa

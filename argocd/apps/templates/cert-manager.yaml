@@ -17,9 +17,10 @@ spec:
       helm:
         releaseName: cert-manager
         valueFiles:
-          - $values/argocd/values/cert-manager.yaml
-    - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-      targetRevision: main
+          - $values/argocd/values/common/cert-manager.yaml
+          - $values/argocd/values/{{ required "env is required" .Values.env }}/cert-manager.yaml
+    - repoURL: {{ .Values.repoURL }}
+      targetRevision: {{ required "revision is required" .Values.revision }}
       ref: values
   destination:
     server: https://kubernetes.default.svc

@@ -1,22 +1,17 @@
-global:
-  domain: argocd.app.fahim-dev.com
 configs:
   params:
     server.insecure: "true"
   cm:
-    url: https://argocd.app.fahim-dev.com
     application.instanceLabelKey: argocd.argoproj.io/instance
 server:
   replicas: 1
   ingress:
     enabled: true
     ingressClassName: traefik
-    hostname: argocd.app.fahim-dev.com
     path: /
     pathType: Prefix
     tls: true
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
 controller:

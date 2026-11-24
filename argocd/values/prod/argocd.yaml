@@ -1,0 +1,10 @@
+global:
+  domain: argocd.app.fahim-dev.com
+configs:
+  cm:
+    url: https://argocd.app.fahim-dev.com
+server:
+  ingress:
+    hostname: argocd.app.fahim-dev.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod

@@ -1,0 +1,20 @@
+resources:
+  - ../../../base/podinfo-frontend/frontend.yaml
+  - ../../../base/podinfo-frontend/ingress.yaml
+replicas:
+  - name: podinfo-frontend
+    count: 1
+patches:
+  - target:
+      kind: Ingress
+      name: podinfo-frontend
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt-staging
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: dev.fahim-dev.com
+      - op: replace
+        path: /spec/rules/0/host
+        value: dev.fahim-dev.com

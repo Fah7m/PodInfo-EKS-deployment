@@ -17,16 +17,9 @@ grafana:
     enabled: true
     ingressClassName: traefik
     annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-    hosts:
-      - grafana.app.fahim-dev.com
     path: /
-    tls:
-      - secretName: grafana-tls
-        hosts:
-          - grafana.app.fahim-dev.com
 
 prometheus:
   enabled: true

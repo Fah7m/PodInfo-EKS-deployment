@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: aws-load-balancer-controller
+  name: external-dns
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
@@ -10,19 +10,20 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://aws.github.io/eks-charts
-      chart: aws-load-balancer-controller
-      targetRevision: 1.11.0
+    - repoURL: https://kubernetes-sigs.github.io/external-dns/
+      chart: external-dns
+      targetRevision: 1.15.2
       helm:
-        releaseName: aws-load-balancer-controller
+        releaseName: external-dns
         valueFiles:
-          - $values/argocd/values/aws-load-balancer-controller.yaml
-    - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-      targetRevision: main
+          - $values/argocd/values/common/external-dns.yaml
+          - $values/argocd/values/{{ required "env is required" .Values.env }}/external-dns.yaml
+    - repoURL: {{ .Values.repoURL }}
+      targetRevision: {{ required "revision is required" .Values.revision }}
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: external-dns
   syncPolicy:
     automated:
       prune: true

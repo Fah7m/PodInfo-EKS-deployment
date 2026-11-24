@@ -3,18 +3,24 @@ kind: Application
 metadata:
   name: root-app
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-    targetRevision: HEAD
+    targetRevision: main
     path: argocd/apps
+    helm:
+    parameters:
+      - name: env
+        value: prod
+      - name: revision
+        value: main
   destination:
     server: https://kubernetes.default.svc 
     namespace: argocd
   syncPolicy: 
     automated:
       prune: true
-      selfHeal: true
-
-    
+      selfHeal: true 

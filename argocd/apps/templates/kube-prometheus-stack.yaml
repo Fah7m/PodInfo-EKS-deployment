@@ -16,9 +16,10 @@ spec:
       helm:
         releaseName: kube-prometheus-stack
         valueFiles:
-          - $values/argocd/values/kube-prometheus-stack.yaml
-    - repoURL: https://github.com/Fah7m/PodInfo-EKS-deployment
-      targetRevision: main
+          - $values/argocd/values/common/kube-prometheus-stack.yaml
+          - $values/argocd/values/{{ required "env is required" .Values.env }}/kube-prometheus-stack.yaml
+    - repoURL: {{ .Values.repoURL }}
+      targetRevision: {{ required "revision is required" .Values.revision }}
       ref: values
   destination:
     server: https://kubernetes.default.svc

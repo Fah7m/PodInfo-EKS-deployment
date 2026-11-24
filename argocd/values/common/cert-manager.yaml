@@ -12,9 +12,7 @@ extraArgs:
 serviceAccount:
   create: true
   name: cert-manager
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-cert-manager-irsa
-
+  
 securityContext:
   fsGroup: 1001
 

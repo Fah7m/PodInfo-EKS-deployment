@@ -1,0 +1,8 @@
+txtOwnerId: eks-prod
+
+domainFilters:
+  - app.fahim-dev.com
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::317990169619:role/eks-prod-external-dns-irsa

@@ -1,0 +1,10 @@
+grafana:
+  ingress:
+    hosts:
+      - grafana.dev.fahim-dev.com
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.dev.fahim-dev.com
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-staging"
