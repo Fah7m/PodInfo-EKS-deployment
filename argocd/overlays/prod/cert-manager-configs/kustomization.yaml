@@ -1,0 +1,2 @@
+resources:
+  - ../../../base/cert-manager-configs/cluster-issuer.yaml

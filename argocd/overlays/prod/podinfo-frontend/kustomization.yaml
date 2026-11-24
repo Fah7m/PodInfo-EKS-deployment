@@ -1,0 +1,3 @@
+resources:
+  - ../../../base/podinfo-frontend/frontend.yaml
+  - ../../../base/podinfo-frontend/ingress.yaml
