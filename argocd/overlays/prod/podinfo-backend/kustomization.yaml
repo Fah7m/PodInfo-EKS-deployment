@@ -1,2 +1,2 @@
 resources:
-  - ../../../base/podinfo-backend/backend.yaml
+  - ../../../base/podinfo-backend

@@ -4,6 +4,11 @@ set -euo pipefail
 # One-time per machine (htpasswd makes the bcrypt hash)
 sudo apt install -y apache2-utils
 
+#variable for ENV
+ENV=
+
+aws eks update-kubeconfig --name eks-${ENV}-eks-cluster --region eu-west-2 --alias eks-${ENV}-eks-cluster
+
 # 1. Point kubectl at the cluster
 aws eks update-kubeconfig --name eks-prod-eks-cluster --region eu-west-2
 kubectl get nodes

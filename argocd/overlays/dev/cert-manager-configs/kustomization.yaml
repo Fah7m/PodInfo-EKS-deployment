@@ -1,20 +1,20 @@
 resources:
-  - ../../../base/cert-manager-configs/cluster-issuer.yaml
+  - ../../../base/cert-manager-configs
 
 patches:
   - target:
       kind: ClusterIssuer
       name: letsencrypt-prod
     patch: |-
-    - op: replace
-      path: /metadata/name
-      value: letsencrypt-staging
-    - op: replace
-      path: /spec/acme/server
-      value: https://acme-staging-v02.api.letsencrypt.org/directory
-    - op: replace
-      path: /spec/acme/privateKeySecretRef/name
-      value: letsencrypt-staging
-    - op: replace
-      path: /spec/acme/solvers/0/dns01/route53/hostedZoneID
-      value: Z02493523BQMHQ5HFY4SM
+      - op: replace
+        path: /metadata/name
+        value: letsencrypt-staging
+      - op: replace
+        path: /spec/acme/server
+        value: https://acme-staging-v02.api.letsencrypt.org/directory
+      - op: replace
+        path: /spec/acme/privateKeySecretRef/name
+        value: letsencrypt-staging
+      - op: replace
+        path: /spec/acme/solvers/0/dns01/route53/hostedZoneID
+        value: Z02493523BQMHQ5HFY4SM

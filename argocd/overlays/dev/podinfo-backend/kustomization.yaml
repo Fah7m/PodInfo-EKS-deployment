@@ -1,5 +1,5 @@
 resources:
-  - ../../../base/podinfo-backend/backend.yaml
+  - ../../../base/podinfo-backend
 replicas:
   - name: podinfo-backend
     count: 1

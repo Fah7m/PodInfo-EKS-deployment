@@ -1,6 +1,5 @@
 resources:
-  - ../../../base/podinfo-frontend/frontend.yaml
-  - ../../../base/podinfo-frontend/ingress.yaml
+  - ../../../base/podinfo-frontend
 replicas:
   - name: podinfo-frontend
     count: 1
